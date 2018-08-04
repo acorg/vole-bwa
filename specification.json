@@ -1,0 +1,48 @@
+{
+    "steps": [
+        {
+            "cwd": "00-start",
+            "name": "start",
+            "script": "./start.sh"
+        },
+        {
+            "cwd": "01-bwa-aln",
+            "dependencies": ["start"],
+            "name": "bwa-aln",
+            "script": "./sbatch.sh"
+        },
+        {
+            "cwd": "02-bwa-aln-l",
+            "dependencies": ["start"],
+            "name": "bwa-aln-l",
+            "script": "./sbatch.sh"
+        },
+        {
+            "cwd": "03-bwa-mem",
+            "dependencies": ["start"],
+            "name": "bwa-mem",
+            "script": "./sbatch.sh"
+        },
+        {
+            "collect": true,
+            "cwd": "04-collect",
+            "dependencies": ["bwa-aln", "bwa-aln-l", "bwa-mem"],
+            "name": "collect",
+            "script": "./sbatch.sh"
+        },
+        {
+            "collect": true,
+            "cwd": "05-stop",
+            "dependencies": ["collect"],
+            "name": "stop",
+            "script": "./sbatch.sh"
+        },
+        {
+            "cwd": "06-error",
+            "dependencies": ["stop"],
+            "error step": true,
+            "name": "error",
+            "script": "./sbatch.sh"
+        }
+    ]
+}
