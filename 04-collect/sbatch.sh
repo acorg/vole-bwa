@@ -3,7 +3,7 @@
 . ../common.sh
 
 log=$logDir/sbatch.log
-out=$(sampleName)-hbv.fastq
+out=$(sampleName)-$genomeSpecies.fastq
 
 echo "$(basename $(pwd)) sbatch.sh running at $(date)" >> $log
 echo "  Dependencies are $SP_DEPENDENCY_ARG" >> $log
